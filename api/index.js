@@ -48,34 +48,34 @@ app.get('/cartoes', async (req, res) => {
 
 
 app.post('/cartoes', async (req, res) => {
-    const { salario, vaga, descricao, horario, nome } = req.body
-    if (!salario) {
+    const { nome, linguagem, estado, link, img } = req.body
+    if (!nome) {
         res.status(400).json({ mensagem: 'Salario do cartão inválido!' })
         console.log('Novo cartao não cadastrado')
     }
-    else if (!vaga) {
+    else if (!linguagem) {
         res.status(400).json({ mensagem: 'Vaga do cartão inválido!' })
         console.log('Novo cartao não cadastrado')
     }
-    else if (!descricao) {
+    else if (!estado) {
         res.status(400).json({ mensagem: 'Descricao do cartão inválido!' })
         console.log('Novo cartao não cadastrado')
     }
-    else if (!horario) {
+    else if (!link) {
         res.status(400).json({ mensagem: 'Horario do cartão inválido!' })
         console.log('Novo cartao não cadastrado')
     }
-    else if (!nome) {
+    else if (!img) {
         res.status(400).json({ mensagem: 'Nome do cartão inválido!' })
         console.log('Novo cartao não cadastrado')
     } else {
         try {
             const novoCartaoRef = await bd.collection('cartoes').add({
-                salario: salario,
-                vaga: vaga,
-                descricao: descricao,
-                horario: horario,
-                nome: nome,
+                img: img,
+                linguagem: linguagem,
+                estado: estado,
+                link: link,
+                img: img,
                 criadoEm: admin.firestore.FieldValue.serverTimestamp()
             })
             res.status(201).json({ mensagem: 'Cartao cadastrado com sucesso', id: novoCartaoRef.id })
@@ -113,7 +113,7 @@ app.delete('/cartoes', async (req, res) => {
 
 
 app.put('/cartoes', async (req, res) => {
-    const { salario, vaga, descricao, horario, nome, id } = req.body;
+    const { nome, linguagem, estado, link, img, id } = req.body
     if (!id) {
         res.status(400).json({ mensagem: 'Id não fornecido' })
         console.log('Cartão não atulizado, Id inválido')
@@ -126,11 +126,11 @@ app.put('/cartoes', async (req, res) => {
                 console.log('Cartão não encontrado')
             } else {
                 const dadosAtualizados = {}
-                if (salario) dadosAtualizados.salario = salario
-                if (vaga) dadosAtualizados.vaga = vaga
-                if (descricao) dadosAtualizados.descricao = descricao
-                if (horario) dadosAtualizados.horario = horario
                 if (nome) dadosAtualizados.nome = nome
+                if (linguagem) dadosAtualizados.linguagem = linguagem
+                if (estado) dadosAtualizados.estado = estado
+                if (link) dadosAtualizados.link = link
+                if (img) dadosAtualizados.img = img
                 await cartaoRef.update(dadosAtualizados)
                 res.status(200).json({ mensagem: 'Cartão com id ' + id + ' atulizado' })
                 console.log('Cartão com id ' + id + ' atulizado')
