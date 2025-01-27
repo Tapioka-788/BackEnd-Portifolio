@@ -50,23 +50,23 @@ app.get('/cartoes', async (req, res) => {
 app.post('/cartoes', async (req, res) => {
     const { nome, linguagem, estado, link, img } = req.body
     if (!nome) {
-        res.status(400).json({ mensagem: 'Salario do cartão inválido!' })
+        res.status(400).json({ mensagem: 'Nome do cartão inválido!' })
         console.log('Novo cartao não cadastrado')
     }
     else if (!linguagem) {
-        res.status(400).json({ mensagem: 'Vaga do cartão inválido!' })
+        res.status(400).json({ mensagem: 'linguagem do cartão inválido!' })
         console.log('Novo cartao não cadastrado')
     }
     else if (!estado) {
-        res.status(400).json({ mensagem: 'Descricao do cartão inválido!' })
+        res.status(400).json({ mensagem: 'estado do cartão inválido!' })
         console.log('Novo cartao não cadastrado')
     }
     else if (!link) {
-        res.status(400).json({ mensagem: 'Horario do cartão inválido!' })
+        res.status(400).json({ mensagem: 'link do cartão inválido!' })
         console.log('Novo cartao não cadastrado')
     }
     else if (!img) {
-        res.status(400).json({ mensagem: 'Nome do cartão inválido!' })
+        res.status(400).json({ mensagem: 'img do cartão inválido!' })
         console.log('Novo cartao não cadastrado')
     } else {
         try {
