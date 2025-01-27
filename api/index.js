@@ -71,7 +71,7 @@ app.post('/cartoes', async (req, res) => {
     } else {
         try {
             const novoCartaoRef = await bd.collection('cartoes').add({
-                img: img,
+                nome: nome,
                 linguagem: linguagem,
                 estado: estado,
                 link: link,
