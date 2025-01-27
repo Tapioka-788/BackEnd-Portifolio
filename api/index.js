@@ -45,8 +45,6 @@ app.get('/cartoes', async (req, res) => {
     }
 });
 
-
-
 app.post('/cartoes', async (req, res) => {
     const { nome, linguagem, estado, link, img } = req.body
     if (!nome) {
@@ -54,19 +52,19 @@ app.post('/cartoes', async (req, res) => {
         console.log('Novo cartao não cadastrado')
     }
     else if (!linguagem) {
-        res.status(400).json({ mensagem: 'linguagem do cartão inválido!' })
+        res.status(400).json({ mensagem: 'Linguagem do cartão inválido!' })
         console.log('Novo cartao não cadastrado')
     }
     else if (!estado) {
-        res.status(400).json({ mensagem: 'estado do cartão inválido!' })
+        res.status(400).json({ mensagem: 'Estado do cartão inválido!' })
         console.log('Novo cartao não cadastrado')
     }
     else if (!link) {
-        res.status(400).json({ mensagem: 'link do cartão inválido!' })
+        res.status(400).json({ mensagem: 'Link do cartão inválido!' })
         console.log('Novo cartao não cadastrado')
     }
     else if (!img) {
-        res.status(400).json({ mensagem: 'img do cartão inválido!' })
+        res.status(400).json({ mensagem: 'Imagem do cartão inválido!' })
         console.log('Novo cartao não cadastrado')
     } else {
         try {
@@ -110,7 +108,6 @@ app.delete('/cartoes', async (req, res) => {
         }
     }
 });
-
 
 app.put('/cartoes', async (req, res) => {
     const { nome, linguagem, estado, link, img, id } = req.body
