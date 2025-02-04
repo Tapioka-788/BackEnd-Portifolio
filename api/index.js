@@ -109,71 +109,34 @@ app.delete('/cartoes', async (req, res) => {
     }
 });
 
-// app.put('/cartoes', async (req, res) => {
-//     const { nome, linguagem, estado, link, img, id } = req.body
-//     if (!id) {
-//         res.status(400).json({ mensagem: 'Id não fornecido' })
-//         console.log('Cartão não atulizado, Id inválido')
-//     } else {
-//         try {
-//             const cartaoRef = bd.collection('cartoes').doc(id)
-//             const doc = await cartaoRef.get()
-//             if (!doc.exists) {
-//                 res.status(404).json({ mensagem: 'Cartão com id ' + id + ' não encontrado' })
-//                 console.log('Cartão não encontrado')
-//             } else {
-//                 const dadosAtualizados = {}
-//                 if (nome) dadosAtualizados.nome = nome
-//                 if (linguagem) dadosAtualizados.linguagem = linguagem
-//                 if (estado) dadosAtualizados.estado = estado
-//                 if (link) dadosAtualizados.link = link
-//                 if (img) dadosAtualizados.img = img
-//                 await cartaoRef.update(dadosAtualizados)
-//                 res.status(200).json({ mensagem: 'Cartão com id ' + id + ' atulizado' })
-//                 console.log('Cartão com id ' + id + ' atulizado')
-//             }
-//         } catch (e) {
-//             console.error('Erro ao atulizar cartão!', error)
-//             res.status(500).json({ mensagem: 'Erro ao atulizar cartão' })
-//         }
-//     }
-// })
-
 app.put('/cartoes', async (req, res) => {
-    const { nome, linguagem, estado, link, img, id } = req.body;
-
+    const { nome, linguagem, estado, link, img, id } = req.body
     if (!id) {
-        console.log('Cartão não atualizado, Id inválido');
-        return res.status(400).json({ mensagem: 'Id não fornecido' });
-    }
-
-    try {
-        const cartaoRef = bd.collection('cartoes').doc(id);
-        const doc = await cartaoRef.get();
-
-        if (!doc.exists) {
-            console.log(`Cartão com id ${id} não encontrado`);
-            return res.status(404).json({ mensagem: `Cartão com id ${id} não encontrado` });
-        }
-
-        const dadosAtualizados = { nome, linguagem, estado, link, img };
-
-        // Remove campos indefinidos para evitar sobrescrever com valores nulos
-        Object.keys(dadosAtualizados).forEach(key => {
-            if (dadosAtualizados[key] === undefined || dadosAtualizados[key] === '') {
-                delete dadosAtualizados[key];
+        res.status(400).json({ mensagem: 'Id não fornecido' })
+        console.log('Cartão não atulizado, Id inválido')
+    } else {
+        try {
+            const cartaoRef = bd.collection('cartoes').doc(id)
+            const doc = await cartaoRef.get()
+            if (!doc.exists) {
+                res.status(404).json({ mensagem: 'Cartão com id ' + id + ' não encontrado' })
+                console.log('Cartão não encontrado')
+            } else {
+                const dadosAtualizados = {}
+                if (nome) dadosAtualizados.nome = nome
+                if (linguagem) dadosAtualizados.linguagem = linguagem
+                if (estado) dadosAtualizados.estado = estado
+                if (link) dadosAtualizados.link = link
+                if (img) dadosAtualizados.img = img
+                await cartaoRef.update(dadosAtualizados)
+                res.status(200).json({ mensagem: 'Cartão com id ' + id + ' atulizado' })
+                console.log('Cartão com id ' + id + ' atulizado')
             }
-        });
-
-        await cartaoRef.update(dadosAtualizados);
-
-        console.log(`Cartão com id ${id} atualizado`);
-        res.status(200).json({ mensagem: `Cartão com id ${id} atualizado` });
-    } catch (error) {
-        console.error('Erro ao atualizar cartão!', error);
-        res.status(500).json({ mensagem: 'Erro ao atualizar cartão' });
+        } catch (e) {
+            console.error('Erro ao atulizar cartão!', error)
+            res.status(500).json({ mensagem: 'Erro ao atulizar cartão' })
+        }
     }
-});
-
+})
 
 module.exports = app
