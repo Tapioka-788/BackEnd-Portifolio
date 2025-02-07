@@ -143,7 +143,7 @@ app.put('/cartoes', async (req, res) => {
 
 app.get('/header', async (req, res) => {
     try {
-        const response = await bd.collection('header').get();
+        const response = await bd.collection("header").orderBy("ordem", "asc").get();
         const header = response.docs.map(doc => ({
             id: doc.id, ...doc.data(),
         }));
