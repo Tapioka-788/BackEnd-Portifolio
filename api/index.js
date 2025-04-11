@@ -141,20 +141,20 @@ app.put('/cartoes', async (req, res) => {
 
 // Caminhos do HEADER
 
-app.get('/header', async (req, res) => {
-    try {
-        const response = await bd.collection("header").orderBy("ordem", "asc").get();
-        const header = response.docs.map(doc => ({
-            id: doc.id, ...doc.data(),
-        }));
-        console.log(header)
-        res.status(200).json({ header });
-        console.log('Cartões devolvidos com sucesso!')
-    } catch (e) {
-        console.log(e);
-        res.status(500).json({ mensagem: 'Erro' + e })
-        console.log('Erro ao buscar dados' + e)
-    }
-});
+// app.get('/header', async (req, res) => {
+//     try {
+//         const response = await bd.collection("header").orderBy("ordem", "asc").get();
+//         const header = response.docs.map(doc => ({
+//             id: doc.id, ...doc.data(),
+//         }));
+//         console.log(header)
+//         res.status(200).json({ header });
+//         console.log('Cartões devolvidos com sucesso!')
+//     } catch (e) {
+//         console.log(e);
+//         res.status(500).json({ mensagem: 'Erro' + e })
+//         console.log('Erro ao buscar dados' + e)
+//     }
+// });
 
 module.exports = app
