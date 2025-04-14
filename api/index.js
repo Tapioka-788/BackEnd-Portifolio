@@ -14,11 +14,11 @@ const serviceAccount = {
     auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
     client_x509_cert_url: "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40backend-portgf.iam.gserviceaccount.com",
     universe_domain: "googleapis.com"
-}  
+}
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
-  });
+});
 
 const bd = admin.firestore();
 
@@ -31,7 +31,8 @@ app.use(express.json());
 
 app.get('/cartoes', async (req, res) => {
     try {
-        const response = await bd.collection('cartoes').get();
+        const response = await bd.collection("cartoes")
+            .orderBy("estado", "asc").get();
         const cartoes = response.docs.map(doc => ({
             id: doc.id, ...doc.data(),
         }));
